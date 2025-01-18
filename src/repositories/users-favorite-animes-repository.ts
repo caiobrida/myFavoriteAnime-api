@@ -8,6 +8,7 @@ export interface UsersFavoriteAnimesRepository {
   findByUser(
     userId: string,
     page: number,
+    search: string,
   ): Promise<{
     data: UserFavoriteAnimes[]
     pagination: Record<string, string | number | boolean> | null

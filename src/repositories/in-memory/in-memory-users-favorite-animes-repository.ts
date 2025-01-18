@@ -35,13 +35,14 @@ export class InMemoryUsersFavoriteAnimesRepository
     return userFavoriteAnimes
   }
 
-  async findByUser(userId: string, page: number) {
+  async findByUser(userId: string, page: number, search: string) {
     const obj: {
       data: UserFavoriteAnimes[]
       pagination: Record<string, string | number> | null
     } = {
       data: this.items.data
         .filter((u) => u.userId === userId)
+        .filter((i) => String(i.animeName).toLowerCase().includes(search))
         .slice((page - 1) * 10, page * 10),
       pagination: { page, limit: 10 },
     }

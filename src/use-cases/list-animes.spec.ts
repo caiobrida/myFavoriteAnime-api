@@ -25,7 +25,7 @@ describe('List animes use case', () => {
       mal_id: 2,
     })
 
-    const { animes } = await sut.execute({ page: 1, userId: '1' })
+    const { animes } = await sut.execute({ page: 1, userId: '1', search: '' })
 
     expect(animes.data).toHaveLength(2)
   })
@@ -50,7 +50,7 @@ describe('List animes use case', () => {
       animeImage: 'test',
     })
 
-    const { animes } = await sut.execute({ page: 1, userId: '1' })
+    const { animes } = await sut.execute({ page: 1, userId: '1', search: '' })
 
     expect(animes.data).toHaveLength(2)
     expect(animes.data[0].name).toBe('anime 1')
@@ -66,8 +66,25 @@ describe('List animes use case', () => {
       })
     }
 
-    const { animes } = await sut.execute({ page: 2, userId: '1' })
+    const { animes } = await sut.execute({ page: 2, userId: '1', search: '' })
 
     expect(animes.data).toHaveLength(2)
+  })
+
+  it('should return animes searched', async () => {
+    for (let i = 0; i < 12; i++) {
+      animesRepository.items.data.push({
+        name: `anime ${i}`,
+        mal_id: i,
+      })
+    }
+
+    const { animes } = await sut.execute({
+      page: 1,
+      userId: '1',
+      search: 'anime 5',
+    })
+
+    expect(animes.data).toHaveLength(1)
   })
 })

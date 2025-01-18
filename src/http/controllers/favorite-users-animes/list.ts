@@ -9,16 +9,18 @@ export async function list(req: FastifyRequest, res: FastifyReply) {
 
   const createQuerySchema = z.object({
     page: z.coerce.number().default(1),
+    search: z.coerce.string().default(''),
   })
 
   const { userId } = createParamsSchema.parse(req.params)
-  const { page } = createQuerySchema.parse(req.query)
+  const { page, search } = createQuerySchema.parse(req.query)
 
   const getUserFavoriteAnimeUseCase = makeListUserFavoriteAnimeUseCase()
 
   const { favoriteAnimes } = await getUserFavoriteAnimeUseCase.execute({
     userId,
     page,
+    search,
   })
 
   return res.status(200).send({ favoriteAnimes })

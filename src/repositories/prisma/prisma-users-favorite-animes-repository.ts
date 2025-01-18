@@ -35,10 +35,20 @@ export class PrismaUsersFavoriteAnimesRepository
     return userFavoriteAnimes
   }
 
-  async findByUser(userId: string, page: number) {
+  async findByUser(userId: string, page: number, search: string) {
+    const searchFilter = search
+      ? {
+          animeName: {
+            contains: search,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        }
+      : {}
+
     const totalRecords = await prisma.userFavoriteAnimes.count({
       where: {
         userId,
+        ...searchFilter,
       },
     })
 
@@ -47,6 +57,7 @@ export class PrismaUsersFavoriteAnimesRepository
       take: 10,
       where: {
         userId,
+        ...searchFilter,
       },
     })
 

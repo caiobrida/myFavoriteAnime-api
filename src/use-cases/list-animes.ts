@@ -4,6 +4,7 @@ import { UsersFavoriteAnimesRepository } from '@/repositories/users-favorite-ani
 interface ListAnimesUseCaseRequest {
   page: number
   userId: string
+  search: string
 }
 
 interface ListAnimesUseCaseResponse {
@@ -22,8 +23,9 @@ export class ListAnimeUseCase {
   async execute({
     page,
     userId,
+    search,
   }: ListAnimesUseCaseRequest): Promise<ListAnimesUseCaseResponse> {
-    const animes = await this.animesRepository.findAll(page)
+    const animes = await this.animesRepository.findAll(page, search)
 
     const userFavoriteAnimes =
       await this.favoriteAnimesRepository.findAll(userId)

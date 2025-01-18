@@ -4,12 +4,13 @@ import { UsersFavoriteAnimesRepository } from '@/repositories/users-favorite-ani
 interface ListUserFavoriteAnimeUseCaseRequest {
   userId: string
   page: number
+  search: string
 }
 
 interface ListUserFavoriteAnimeUseCaseResponse {
   favoriteAnimes: {
     data: UserFavoriteAnimes[]
-    pagination: Record<string, string | number> | null
+    pagination: Record<string, string | number | boolean> | null
   }
 }
 
@@ -21,10 +22,12 @@ export class ListUserFavoriteAnimeUseCase {
   async execute({
     userId,
     page,
+    search,
   }: ListUserFavoriteAnimeUseCaseRequest): Promise<ListUserFavoriteAnimeUseCaseResponse> {
     const favoriteAnimes = await this.favoriteAnimesRepository.findByUser(
       userId,
       page,
+      search,
     )
 
     return { favoriteAnimes }

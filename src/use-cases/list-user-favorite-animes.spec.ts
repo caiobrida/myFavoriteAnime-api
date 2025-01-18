@@ -33,9 +33,38 @@ describe('List user favorite animes use case', () => {
     const { favoriteAnimes } = await sut.execute({
       userId: '2',
       page: 1,
+      search: '',
     })
 
     expect(favoriteAnimes.data).toHaveLength(2)
+  })
+
+  it('should return user favorite animes searched', async () => {
+    await usersFavoriteAnimeRepository.create({
+      animeId: '1',
+      userId: '2',
+      id: '3',
+      animeEpisodes: '12',
+      animeName: 'test 1',
+      animeImage: 'test',
+    })
+
+    await usersFavoriteAnimeRepository.create({
+      animeId: '2',
+      userId: '2',
+      id: '4',
+      animeEpisodes: '12',
+      animeName: 'test 2',
+      animeImage: 'test',
+    })
+
+    const { favoriteAnimes } = await sut.execute({
+      userId: '2',
+      page: 1,
+      search: 'test 1',
+    })
+
+    expect(favoriteAnimes.data).toHaveLength(1)
   })
 
   it('should return nothing on user favorite animes', async () => {
@@ -60,6 +89,7 @@ describe('List user favorite animes use case', () => {
     const { favoriteAnimes } = await sut.execute({
       userId: '3',
       page: 1,
+      search: '',
     })
 
     expect(favoriteAnimes.data).toHaveLength(0)
