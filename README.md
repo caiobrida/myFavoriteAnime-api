@@ -13,4 +13,4 @@ MyFavoriteAnimes possue também uma aplicação frontend ([myFavoriteAnimes-fron
 - Execute npm run dev para iniciar a API localmente
 
 # Observação
-Sei que não se deve subir o arquivo ".env" no repositório, apenas fiz isso para facilitar e acelerar o processo de configuração do projeto
+Sei que não se deve subir o arquivo ".env" no repositório, apenas fiz isso para facilitar e acelerar o processo de configuração do projeto, assim que terminarem de clonar e utilizar o projeto removerei ele.
