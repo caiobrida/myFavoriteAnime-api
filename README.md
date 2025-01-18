@@ -9,7 +9,7 @@ MyFavoriteAnimes possue também uma aplicação frontend ([myFavoriteAnimes-fron
 - Clone o repositório para seu ambiente local.
 - A aplicação, por padrão, roda na porta "3333", caso precise alterar a porta, basta ir no arquivo ".env" e alterar a variável ambiente chamada "PORT" para a porta que desejar.
 - No projeto da API, execute npm install
-- Execute npm run test, certifique que todos os testes passaram
+- Execute npm run test, certifique-se de que todos os testes passaram
 - Execute npm run dev para iniciar a aplicação localmente
 
 # Observação
